@@ -1,7 +1,6 @@
 import app from './app';
 
 describe('app', () => {
-
   describe('AppCtrl', () => {
     let ctrl;
 
