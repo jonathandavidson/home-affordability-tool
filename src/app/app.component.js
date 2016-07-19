@@ -1,5 +1,5 @@
 import appController from './app.controller';
-import '../style/app.scss';
+import './app.scss';
 
 const appTemplate = require('./app.html');
 

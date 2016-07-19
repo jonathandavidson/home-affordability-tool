@@ -1,5 +1,6 @@
 import angular from 'angular';
-import appComponent from './app.component';
+import AppComponent from './app.component';
+import Components from './components';
 
-angular.module('app', [])
-  .component('app', appComponent);
+angular.module('app', [Components])
+  .component('app', AppComponent);
