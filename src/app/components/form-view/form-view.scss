@@ -1,0 +1,10 @@
+.form-view {
+  > .form > .label {
+    display: block;
+
+    > .label-text {
+      display: inline-block;
+      width: 200px;
+    }
+  }
+}

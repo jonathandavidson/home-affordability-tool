@@ -1,5 +1,1 @@
-export default class AppController {
-  constructor() {
-
-  }
-}
+export default class AppController {}
