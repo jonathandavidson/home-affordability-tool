@@ -1,36 +1,37 @@
 <div class="form-view">
-  <form class="form">
-    <label class="label">
-      <span class="label-text">Current Home Value</span>
-      <input type="number" name="currentHomeValue"/>
-    </label>
-    <label class="label">
-      <span class="label-text">Loan Balance</span>
-      <input type="number" name="loanBalance"/>
-    </label>
-    <label class="label">
-      <span class="label-text">After Tax Income</span>
-      <input type="number" name="afterTaxIncome"/>
-    </label>
-    <label class="label">
-      <span class="label-text">Current Savings Balance</span>
-      <input type="number" name="currentSavingsBalance"/>
-    </label>
-    <label class="label">
-      <span class="label-text">Cost to Sell Current Home</span>
-      <input type="number" name="sellingCosts"/>
-    </label>
-    <label class="label">
-      <span class="label-text">Down Payment Desired (%)</span>
-      <input type="number" name="downPaymentPercent"/>
-    </label>
-    <label class="label">
-      <span class="label-text">Payment Desired (% of After Tax Income)</span>
-      <input type="number" name="paymentPercentOfIncome"/>
-    </label>
-    <label class="label">
-      <span class="label-text">Loan Term Desired</span>
-      <input type="number" name="loanTerm"/>
-    </label>
+  <form novalidate class="form" name="home-purchase" ng-submit="$ctrl.processForm(current, desired)">
+    <label>
+      Current Home Value<br />
+      <input type="number" name="currentHomeValue" ng-model="current.homeValue"/>
+    </label><br />
+    <label>
+      Loan Balance<br />
+      <input type="number" name="loanBalance" ng-model="current.loanValue"/>
+    </label><br />
+    <label>
+      After Tax Income<br />
+      <input type="number" name="afterTaxIncome" ng-model="current.afterTaxIncome"/>
+    </label><br />
+    <label>
+      Current Savings Balance<br />
+      <input type="number" name="currentSavingsBalance" ng-model="current.savingsBalance"/>
+    </label><br />
+    <label>
+      Cost to Sell Current Home<br />
+      <input type="number" name="sellingCosts" ng-model="current.sellingCosts"/>
+    </label><br />
+    <label>
+      Down Payment Desired (%)<br />
+      <input type="number" name="downPaymentPercent" ng-model="desired.downPaymentPercent"/>
+    </label><br />
+    <label>
+      Payment Desired (% of After Tax Income)<br />
+      <input type="number" name="paymentPercentOfIncome" ng-model="desired.paymentPercentOfIncome"/>
+    </label><br />
+    <label>
+      Loan Term Desired<br />
+      <input type="number" name="loanTerm" ng-model="desired.loanTerm"/>
+    </label><br />
+    <button class="submit" type="submit">Submit</button>
   </form>
 </div>
