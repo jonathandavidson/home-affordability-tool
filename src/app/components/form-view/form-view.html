@@ -1,37 +1,92 @@
 <div class="form-view">
-  <form novalidate class="form" name="home-purchase" ng-submit="$ctrl.processForm(current, desired)">
+  <form novalidate class="form" name="homePurchase" ng-submit="$ctrl.processForm(current, desired)">
     <label>
       Current Home Value<br />
-      <input type="number" name="currentHomeValue" ng-model="current.homeValue"/>
-    </label><br />
+      <input
+        type="number"
+        name="currentHomeValue"
+        ng-model="current.homeValue"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.currency"
+      />
+    </label>
+    <br />
     <label>
       Loan Balance<br />
-      <input type="number" name="loanBalance" ng-model="current.loanValue"/>
-    </label><br />
+      <input
+        type="number"
+        name="loanBalance"
+        ng-model="current.loanValue"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.currency"
+      />
+    </label>
+    <br />
     <label>
       After Tax Income<br />
-      <input type="number" name="afterTaxIncome" ng-model="current.afterTaxIncome"/>
-    </label><br />
+      <input
+        type="number"
+        name="afterTaxIncome"
+        ng-model="current.afterTaxIncome"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.currency"
+      />
+    </label>
+    <br />
     <label>
       Current Savings Balance<br />
-      <input type="number" name="currentSavingsBalance" ng-model="current.savingsBalance"/>
-    </label><br />
+      <input
+        type="number"
+        name="currentSavingsBalance"
+        ng-model="current.savingsBalance"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.currency"
+      />
+    </label>
+    <br />
     <label>
       Cost to Sell Current Home<br />
-      <input type="number" name="sellingCosts" ng-model="current.sellingCosts"/>
-    </label><br />
+      <input
+        type="number"
+        name="sellingCosts"
+        ng-model="current.sellingCosts"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.currency"
+      />
+    </label>
+    <br />
     <label>
       Down Payment Desired (%)<br />
-      <input type="number" name="downPaymentPercent" ng-model="desired.downPaymentPercent"/>
-    </label><br />
+      <input
+        type="number"
+        name="downPaymentPercent"
+        ng-model="desired.downPaymentPercent"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.percent"
+      />
+    </label>
+    <br />
     <label>
       Payment Desired (% of After Tax Income)<br />
-      <input type="number" name="paymentPercentOfIncome" ng-model="desired.paymentPercentOfIncome"/>
-    </label><br />
+      <input
+        type="number"
+        name="paymentPercentOfIncome"
+        ng-model="desired.paymentPercentOfIncome"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.percent"
+      />
+    </label>
+    <br />
     <label>
       Loan Term Desired<br />
-      <input type="number" name="loanTerm" ng-model="desired.loanTerm"/>
-    </label><br />
-    <button class="submit" type="submit">Submit</button>
+      <select name="loanTerm" ng-model="desired.loanTerm" ng-required="true">
+        <option value="30">30 year fixed</option>
+        <option value="20">20 year fixed</option>
+        <option value="15">15 year fixed</option>
+        <option value="10">10 year fixed</option>
+      </select>
+    </label>
+    <br />
+    <button class="submit" type="submit" ng-disabled="homePurchase.$invalid">Submit</button>
   </form>
 </div>
