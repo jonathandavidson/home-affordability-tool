@@ -1,5 +1,5 @@
 class FormViewController {
-  constructor($state, FormViewService) {
+  constructor($state, FormViewService, ResultsService) {
     this.patterns = {
       currency: /^\d+(\.\d{2})?$/,
       percent: /^\d{1,2}(?!\d)|100$/,
@@ -7,11 +7,13 @@ class FormViewController {
 
     this.$state = $state;
     this.FormViewService = FormViewService;
+    this.ResultsService = ResultsService;
   }
 
-  processForm(current, desired) {
-    this.FormViewService.calculate()
-      .then(() => {
+  processForm(formValues) {
+    this.FormViewService.calculate(formValues)
+      .then(results => {
+        this.ResultsService.setResults(results);
         this.$state.go('results');
       }, () => {
         alert('There was a problem calulating the result.');
@@ -19,6 +21,6 @@ class FormViewController {
   }
 }
 
-FormViewController.$inject = ['$state', 'FormViewService'];
+FormViewController.$inject = ['$state', 'FormViewService', 'ResultsService'];
 
 export default FormViewController;
