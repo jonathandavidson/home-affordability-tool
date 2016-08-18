@@ -1,13 +1,13 @@
 export default class ResultsService {
-  constructor() {
-    this.results = null;
+  constructor($window) {
+    this.store = $window.localStorage;
   }
 
   setResults(results) {
-    this.results = results;
+    this.store.setItem('results', JSON.stringify(results));
   }
 
   getResults() {
-    return this.results;
+    return JSON.parse(this.store.getItem('results'));
   }
 }

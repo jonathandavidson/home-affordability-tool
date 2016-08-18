@@ -7,5 +7,5 @@ export default angular.module(
     'app.components',
     [FormView, Results]
   )
-  .service('ResultsService', ResultsService)
+  .service('ResultsService', ['$window', ResultsService])
   .name;
