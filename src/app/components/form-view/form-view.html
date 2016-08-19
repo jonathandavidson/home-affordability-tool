@@ -1,11 +1,11 @@
 <div class="form-view">
-  <form novalidate class="form" name="homePurchase" ng-submit="$ctrl.processForm(formValues)">
+  <form novalidate class="form" name="homePurchase" ng-submit="$ctrl.processForm($ctrl.formValues)">
     <label>
       Current Home Value<br />
       <input
         type="number"
         name="currentHomeValue"
-        ng-model="formValues.homeValue"
+        ng-model="$ctrl.formValues.homeValue"
         ng-required="true"
         ng-pattern="$ctrl.patterns.currency"
       />
@@ -16,7 +16,7 @@
       <input
         type="number"
         name="loanBalance"
-        ng-model="formValues.loanValue"
+        ng-model="$ctrl.formValues.loanValue"
         ng-required="true"
         ng-pattern="$ctrl.patterns.currency"
       />
@@ -27,7 +27,7 @@
       <input
         type="number"
         name="monthlyAfterTaxIncome"
-        ng-model="formValues.monthlyAfterTaxIncome"
+        ng-model="$ctrl.formValues.monthlyAfterTaxIncome"
         ng-required="true"
         ng-pattern="$ctrl.patterns.currency"
       />
@@ -38,7 +38,7 @@
       <input
         type="number"
         name="currentSavingsBalance"
-        ng-model="formValues.savingsBalance"
+        ng-model="$ctrl.formValues.savingsBalance"
         ng-required="true"
         ng-pattern="$ctrl.patterns.currency"
       />
@@ -49,7 +49,7 @@
       <input
         type="number"
         name="sellingCosts"
-        ng-model="formValues.sellingCosts"
+        ng-model="$ctrl.formValues.sellingCosts"
         ng-required="true"
         ng-pattern="$ctrl.patterns.currency"
       />
@@ -60,7 +60,7 @@
       <input
         type="number"
         name="downPaymentPercent"
-        ng-model="formValues.downPaymentPercent"
+        ng-model="$ctrl.formValues.downPaymentPercent"
         ng-required="true"
         ng-pattern="$ctrl.patterns.percent"
       />
@@ -71,7 +71,7 @@
       <input
         type="number"
         name="paymentPercentOfIncome"
-        ng-model="formValues.paymentPercentOfIncome"
+        ng-model="$ctrl.formValues.paymentPercentOfIncome"
         ng-required="true"
         ng-pattern="$ctrl.patterns.percent"
       />
@@ -79,7 +79,7 @@
     <br />
     <label>
       Loan Term Desired<br />
-      <select name="loanTerm" ng-model="formValues.loanTerm" ng-required="true">
+      <select name="loanTerm" ng-model="$ctrl.formValues.loanTerm" ng-required="true">
         <option value="30">30 year fixed</option>
         <option value="20">20 year fixed</option>
         <option value="15">15 year fixed</option>

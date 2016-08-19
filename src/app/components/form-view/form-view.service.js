@@ -1,4 +1,8 @@
 export default class FormViewService {
+  constructor($window) {
+    this.store = $window.localStorage;
+  }
+
   calculate({
     monthlyAfterTaxIncome,
     downPaymentPercent,
@@ -27,5 +31,13 @@ export default class FormViewService {
 
       resolve(outputs);
     });
+  }
+
+  setFormValues(formValues) {
+    this.store.setItem('formValues', JSON.stringify(formValues));
+  }
+
+  getFormValues() {
+    return JSON.parse(this.store.getItem('formValues'));
   }
 }

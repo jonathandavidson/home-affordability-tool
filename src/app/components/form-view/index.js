@@ -5,5 +5,5 @@ import FormViewService from './form-view.service';
 
 export default angular.module('formView', [uiRouter])
   .component('formView', FormView)
-  .service('FormViewService', FormViewService)
+  .service('FormViewService', ['$window', FormViewService])
   .name;

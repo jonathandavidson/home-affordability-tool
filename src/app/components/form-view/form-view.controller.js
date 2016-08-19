@@ -8,9 +8,12 @@ class FormViewController {
     this.$state = $state;
     this.FormViewService = FormViewService;
     this.ResultsService = ResultsService;
+
+    this.formValues = this.FormViewService.getFormValues();
   }
 
   processForm(formValues) {
+    this.FormViewService.setFormValues(formValues);
     this.FormViewService.calculate(formValues)
       .then(results => {
         this.ResultsService.setResults(results);
