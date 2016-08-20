@@ -16,15 +16,15 @@ export default class FormViewService {
     return new Promise((resolve, reject) => {
       const equity = homeValue - loanValue;
       const cashFromSale = equity - sellingCosts;
-      const savingsAfterSale = savingsBalance + cashFromSale;
-      const valueFromDownPayment = savingsAfterSale / downPaymentPercent;
+      const availableForDownPayment = savingsBalance + cashFromSale;
+      const valueFromDownPayment = availableForDownPayment / downPaymentPercent;
 
       const maximumMonthlyPayment = monthlyAfterTaxIncome * (paymentPercentOfIncome / 100);
 
       const outputs = {
         equity,
         cashFromSale,
-        savingsAfterSale,
+        availableForDownPayment,
         valueFromDownPayment,
         maximumMonthlyPayment,
       };
