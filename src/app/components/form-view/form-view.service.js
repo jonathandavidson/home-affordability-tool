@@ -17,7 +17,7 @@ export default class FormViewService {
       const equity = homeValue - loanValue;
       const cashFromSale = equity - sellingCosts;
       const availableForDownPayment = savingsBalance + cashFromSale;
-      const valueFromDownPayment = availableForDownPayment / downPaymentPercent;
+      const valueFromDownPayment = availableForDownPayment / (downPaymentPercent / 100);
 
       const maximumMonthlyPayment = monthlyAfterTaxIncome * (paymentPercentOfIncome / 100);
 
