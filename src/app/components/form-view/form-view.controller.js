@@ -18,8 +18,10 @@ class FormViewController {
       .then(results => {
         this.ResultsService.setResults(results);
         this.$state.go('results');
-      }, () => {
-        alert('There was a problem calulating the result.');
+      }, error => {
+        if (error.message === 'INSUFFICIENT_SAVINGS') {
+          this.errorMessage = 'We are unable to calculate since your savings balance is insufficient to cover your loss from selling';
+        }
       });
   }
 }

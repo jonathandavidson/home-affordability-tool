@@ -23,16 +23,12 @@ const $window = {
   },
 };
 
+const service = new FormViewService($window);
+
 describe('form-view.service', () => {
   describe('when calculate() is called', () => {
     it('returns a promise that resolves with the correct outputs', done => {
       const inputs = Object.assign({}, commonInputs);
-      const service = new FormViewService({});
-
-      const failTest = error => {
-        expect(error).toBeUndefined();
-        done();
-      };
 
       const expectedOutput = {
         equity: 20000,
@@ -42,21 +38,34 @@ describe('form-view.service', () => {
         maximumMonthlyPayment: 1250,
       };
 
-      const testResolve = output => {
-        expect(output).toEqual(expectedOutput);
-        done();
-      };
-
       service.calculate(inputs)
-        .then(testResolve)
-        .catch(failTest);
+        .then(output => {
+          expect(output).toEqual(expectedOutput);
+          done();
+        });
+    });
+
+    describe('and homeValue - loanValue - sellingCosts + savingsBalance is negative', () => {
+      it('returns a promise that rejects with the correct error message', done => {
+        const inputs = Object.assign({}, commonInputs, {
+          loanValue: 200000,
+          savingsBalance: 100000,
+          sellingCosts: 1
+        });
+
+        service.calculate(inputs)
+          .catch(error => {
+            expect(error instanceof Error).toBe(true);
+            expect(error.message).toBe('INSUFFICIENT_SAVINGS');
+            done();
+          });
+        });
     });
   });
 
   describe('when setFormValues() is called', () => {
-    const service = new FormViewService($window);
-
     service.setFormValues(formValues);
+
     it('saves the serialized object in localStorage', () => {
       expect($window.localStorage.setItem.calls.count())
         .toEqual(1);
@@ -68,8 +77,6 @@ describe('form-view.service', () => {
 
   describe('when getFormValues() is called', () => {
     $window.localStorage.getItem.and.returnValue(JSON.stringify(formValues));
-    const service = new FormViewService($window);
-
     const returnValue = service.getFormValues(formValues);
 
     it('returns the unserialized object from localStorage', () => {

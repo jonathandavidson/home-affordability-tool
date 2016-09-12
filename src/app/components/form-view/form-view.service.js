@@ -1,3 +1,5 @@
+import ValidationError from '../../../lib/error/validation';
+
 export default class FormViewService {
   constructor($window) {
     this.store = $window.localStorage;
@@ -18,18 +20,19 @@ export default class FormViewService {
       const cashFromSale = equity - sellingCosts;
       const availableForDownPayment = savingsBalance + cashFromSale;
       const valueFromDownPayment = availableForDownPayment / (downPaymentPercent / 100);
-
       const maximumMonthlyPayment = monthlyAfterTaxIncome * (paymentPercentOfIncome / 100);
 
-      const outputs = {
+      if (availableForDownPayment < 0) {
+        reject(new ValidationError('INSUFFICIENT_SAVINGS'));
+      }
+
+      resolve({
         equity,
         cashFromSale,
         availableForDownPayment,
         valueFromDownPayment,
         maximumMonthlyPayment,
-      };
-
-      resolve(outputs);
+      });
     });
   }
 
