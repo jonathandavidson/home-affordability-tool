@@ -6,25 +6,22 @@ export default class FormViewService {
   }
 
   calculate({
-    monthlyAfterTaxIncome,
-    downPaymentPercent,
-    homeValue,
-    loanTerm,
-    loanValue,
-    paymentPercentOfIncome,
-    savingsBalance,
-    sellingCosts,
+    monthlyAfterTaxIncome, downPaymentRate, homeValue, loanTerm, loanValue,
+    grossPaymentRate, savingsBalance, sellingCosts, propertyTaxRate,
+    insuranceRate
   }) {
     return new Promise((resolve, reject) => {
       const equity = homeValue - loanValue;
       const cashFromSale = equity - sellingCosts;
       const availableForDownPayment = savingsBalance + cashFromSale;
-      const valueFromDownPayment = availableForDownPayment / (downPaymentPercent / 100);
-      const maximumMonthlyPayment = monthlyAfterTaxIncome * (paymentPercentOfIncome / 100);
 
       if (availableForDownPayment < 0) {
         reject(new ValidationError('INSUFFICIENT_SAVINGS'));
       }
+
+      const valueFromDownPayment = availableForDownPayment / downPaymentRate;
+      const maximumMonthlyPayment = monthlyAfterTaxIncome * grossPaymentRate;
+      const netPayment = (1 - propertyTaxRate - insuranceRate) * maximumMonthlyPayment;
 
       resolve({
         equity,
@@ -32,6 +29,7 @@ export default class FormViewService {
         availableForDownPayment,
         valueFromDownPayment,
         maximumMonthlyPayment,
+        netPayment,
       });
     });
   }

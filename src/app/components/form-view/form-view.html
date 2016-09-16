@@ -88,6 +88,28 @@
       </select>
     </label>
     <br />
+    <label>
+      New Property Tax Rate (% of Payment)<br />
+      <input
+        type="number"
+        name="propertyTaxPercent"
+        ng-model="$ctrl.formValues.propertyTaxPercent"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.percent"
+      />
+    </label>
+    <br />
+    <label>
+      New Hazard Insurance Rate (% of Payment)<br />
+      <input
+        type="number"
+        name="insurancePercent"
+        ng-model="$ctrl.formValues.insurancePercent"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.percent"
+      />
+    </label>
+    <br />
     <button class="submit" type="submit" ng-disabled="homePurchase.$invalid">Submit</button>
   </form>
 </div>

@@ -13,6 +13,11 @@ class FormViewController {
   }
 
   processForm(formValues) {
+    formValues.downPaymentRate = formValues.downPaymentPercent / 100;
+    formValues.grossPaymentRate = formValues.paymentPercentOfIncome / 100;
+    formValues.propertyTaxRate = formValues.propertyTaxPercent / 100;
+    formValues.insuranceRate = formValues.insurancePercent / 100;
+
     this.FormViewService.setFormValues(formValues);
     this.FormViewService.calculate(formValues)
       .then(results => {

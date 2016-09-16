@@ -2,13 +2,15 @@ import FormViewService from '../form-view.service';
 
 const commonInputs = {
   monthlyAfterTaxIncome: 5000,
-  downPaymentPercent: 20,
+  downPaymentRate: 0.20,
   homeValue: 100000,
   loanTerm: 30,
   loanValue: 80000,
-  paymentPercentOfIncome: 25,
+  grossPaymentRate: 0.25,
   savingsBalance: 2000,
   sellingCosts: 6000,
+  propertyTaxRate: 0.06,
+  insuranceRate: 0.03,
 };
 
 const formValues = {
@@ -36,11 +38,29 @@ describe('form-view.service', () => {
         availableForDownPayment: 16000,
         valueFromDownPayment: 80000,
         maximumMonthlyPayment: 1250,
+        netPayment: 1137.50
       };
 
       service.calculate(inputs)
         .then(output => {
-          expect(output).toEqual(expectedOutput);
+          expect(output.equity)
+            .toEqual(expectedOutput.equity);
+
+          expect(output.cashFromSale)
+            .toEqual(expectedOutput.cashFromSale);
+
+          expect(output.availableForDownPayment)
+            .toEqual(expectedOutput.availableForDownPayment);
+
+          expect(output.valueFromDownPayment)
+            .toEqual(expectedOutput.valueFromDownPayment);
+
+          expect(output.maximumMonthlyPayment)
+            .toEqual(expectedOutput.maximumMonthlyPayment);
+
+          expect(output.netPayment)
+            .toEqual(expectedOutput.netPayment);
+
           done();
         });
     });
