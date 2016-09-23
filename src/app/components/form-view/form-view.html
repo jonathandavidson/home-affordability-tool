@@ -89,6 +89,17 @@
     </label>
     <br />
     <label>
+      New Loan Interest Rate (%)<br />
+      <input
+        type="number"
+        name="interestRatePercent"
+        ng-model="$ctrl.formValues.interestRatePercent"
+        ng-required="true"
+        ng-pattern="$ctrl.patterns.percent"
+      />
+    </label>
+    <br />
+    <label>
       New Property Tax Rate (% of Payment)<br />
       <input
         type="number"

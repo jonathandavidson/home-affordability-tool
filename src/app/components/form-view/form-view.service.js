@@ -1,5 +1,9 @@
 import ValidationError from '../../../lib/error/validation';
 
+function roundCurrency(value) {
+  return Math.round(value * 100) / 100;
+}
+
 export default class FormViewService {
   constructor($window) {
     this.store = $window.localStorage;
@@ -8,7 +12,7 @@ export default class FormViewService {
   calculate({
     monthlyAfterTaxIncome, downPaymentRate, homeValue, loanTerm, loanValue,
     grossPaymentRate, savingsBalance, sellingCosts, propertyTaxRate,
-    insuranceRate
+    insuranceRate, interestRate,
   }) {
     return new Promise((resolve, reject) => {
       const equity = homeValue - loanValue;
@@ -23,6 +27,18 @@ export default class FormViewService {
       const maximumMonthlyPayment = monthlyAfterTaxIncome * grossPaymentRate;
       const netPayment = (1 - propertyTaxRate - insuranceRate) * maximumMonthlyPayment;
 
+      const maxLoanAmount = roundCurrency(
+        netPayment * (
+          (1 - Math.pow((1 + (interestRate / 12)), -(loanTerm * 12))) / (interestRate / 12)
+        )
+      );
+
+      const valueFromIncome = roundCurrency((maxLoanAmount / (1 - downPaymentRate)));
+
+      const maxHomeValue = valueFromDownPayment < valueFromIncome
+        ? valueFromDownPayment
+        : valueFromIncome;
+
       resolve({
         equity,
         cashFromSale,
@@ -30,6 +46,9 @@ export default class FormViewService {
         valueFromDownPayment,
         maximumMonthlyPayment,
         netPayment,
+        maxLoanAmount,
+        valueFromIncome,
+        maxHomeValue,
       });
     });
   }

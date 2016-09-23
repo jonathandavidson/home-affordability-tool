@@ -13,19 +13,22 @@ class FormViewController {
   }
 
   processForm(formValues) {
-    formValues.downPaymentRate = formValues.downPaymentPercent / 100;
-    formValues.grossPaymentRate = formValues.paymentPercentOfIncome / 100;
-    formValues.propertyTaxRate = formValues.propertyTaxPercent / 100;
-    formValues.insuranceRate = formValues.insurancePercent / 100;
+    const values = Object.assign({}, formValues);
+    values.downPaymentRate = formValues.downPaymentPercent / 100;
+    values.grossPaymentRate = formValues.paymentPercentOfIncome / 100;
+    values.propertyTaxRate = formValues.propertyTaxPercent / 100;
+    values.insuranceRate = formValues.insurancePercent / 100;
+    values.interestRate = formValues.interestRatePercent / 100;
 
-    this.FormViewService.setFormValues(formValues);
-    this.FormViewService.calculate(formValues)
+    this.FormViewService.setFormValues(values);
+    this.FormViewService.calculate(values)
       .then(results => {
         this.ResultsService.setResults(results);
         this.$state.go('results');
       }, error => {
         if (error.message === 'INSUFFICIENT_SAVINGS') {
-          this.errorMessage = 'We are unable to calculate since your savings balance is insufficient to cover your loss from selling';
+          this.errorMessage = 'We are unable to calculate since your savings balance '
+            + 'is insufficient to cover your loss from selling';
         }
       });
   }

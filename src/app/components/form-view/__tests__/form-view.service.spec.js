@@ -11,6 +11,7 @@ const commonInputs = {
   sellingCosts: 6000,
   propertyTaxRate: 0.06,
   insuranceRate: 0.03,
+  interestRate: 0.045,
 };
 
 const formValues = {
@@ -32,34 +33,17 @@ describe('form-view.service', () => {
     it('returns a promise that resolves with the correct outputs', done => {
       const inputs = Object.assign({}, commonInputs);
 
-      const expectedOutput = {
-        equity: 20000,
-        cashFromSale: 14000,
-        availableForDownPayment: 16000,
-        valueFromDownPayment: 80000,
-        maximumMonthlyPayment: 1250,
-        netPayment: 1137.50
-      };
-
       service.calculate(inputs)
         .then(output => {
-          expect(output.equity)
-            .toEqual(expectedOutput.equity);
-
-          expect(output.cashFromSale)
-            .toEqual(expectedOutput.cashFromSale);
-
-          expect(output.availableForDownPayment)
-            .toEqual(expectedOutput.availableForDownPayment);
-
-          expect(output.valueFromDownPayment)
-            .toEqual(expectedOutput.valueFromDownPayment);
-
-          expect(output.maximumMonthlyPayment)
-            .toEqual(expectedOutput.maximumMonthlyPayment);
-
-          expect(output.netPayment)
-            .toEqual(expectedOutput.netPayment);
+          expect(output.equity).toEqual(20000);
+          expect(output.cashFromSale).toEqual(14000);
+          expect(output.availableForDownPayment).toEqual(16000);
+          expect(output.valueFromDownPayment).toEqual(80000);
+          expect(output.maximumMonthlyPayment).toEqual(1250);
+          expect(output.netPayment).toEqual(1137.50);
+          expect(output.maxLoanAmount).toEqual(224498.32);
+          expect(output.valueFromIncome).toEqual(280622.9);
+          expect(output.maxHomeValue).toEqual(80000);
 
           done();
         });
@@ -70,7 +54,7 @@ describe('form-view.service', () => {
         const inputs = Object.assign({}, commonInputs, {
           loanValue: 200000,
           savingsBalance: 100000,
-          sellingCosts: 1
+          sellingCosts: 1,
         });
 
         service.calculate(inputs)
@@ -79,7 +63,7 @@ describe('form-view.service', () => {
             expect(error.message).toBe('INSUFFICIENT_SAVINGS');
             done();
           });
-        });
+      });
     });
   });
 
