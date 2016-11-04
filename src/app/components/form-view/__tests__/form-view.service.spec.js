@@ -40,9 +40,7 @@ describe('form-view.service', () => {
           expect(output.availableForDownPayment).toEqual(16000);
           expect(output.valueFromDownPayment).toEqual(80000);
           expect(output.maximumMonthlyPayment).toEqual(1250);
-          expect(output.netPayment).toEqual(1137.50);
-          expect(output.maxLoanAmount).toEqual(224498.32);
-          expect(output.valueFromIncome).toEqual(280622.9);
+          expect(output.valueFromIncome).toEqual(108192.49);
           expect(output.maxHomeValue).toEqual(80000);
 
           done();

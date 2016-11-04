@@ -25,15 +25,10 @@ export default class FormViewService {
 
       const valueFromDownPayment = availableForDownPayment / downPaymentRate;
       const maximumMonthlyPayment = monthlyAfterTaxIncome * grossPaymentRate;
-      const netPayment = (1 - propertyTaxRate - insuranceRate) * maximumMonthlyPayment;
 
-      const maxLoanAmount = roundCurrency(
-        netPayment * (
-          (1 - Math.pow((1 + (interestRate / 12)), -(loanTerm * 12))) / (interestRate / 12)
-        )
-      );
+      const paymentFactor = ((1 - Math.pow((1 + (interestRate / 12)), -(loanTerm * 12))) / (interestRate / 12)) / (1 - downPaymentRate);
 
-      const valueFromIncome = roundCurrency((maxLoanAmount / (1 - downPaymentRate)));
+      const valueFromIncome = roundCurrency((paymentFactor * maximumMonthlyPayment) / (1 + (paymentFactor * insuranceRate / 12) + (paymentFactor * propertyTaxRate / 12)));
 
       const maxHomeValue = valueFromDownPayment < valueFromIncome
         ? valueFromDownPayment
@@ -45,8 +40,6 @@ export default class FormViewService {
         availableForDownPayment,
         valueFromDownPayment,
         maximumMonthlyPayment,
-        netPayment,
-        maxLoanAmount,
         valueFromIncome,
         maxHomeValue,
       });
